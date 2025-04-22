@@ -1,0 +1,145 @@
+number = ''
+filler_string = '--------------------------------------------'
+personal_information_check = False
+enterpreneur_information_check = False
+def index_func():
+    global number, index_letter_checker
+    index_letter_checker = 0
+    index = input('Введите почтовый Индекс: ')
+    for index_checker in index:
+        if index_checker.isdigit():
+            index_letter_checker += 1
+            number += index_checker
+            continue
+        else:
+            continue
+    if index_letter_checker == 0:
+        number = ''
+        index_letter_checker = 0
+        print('В индексе должна быть хоть одна Цифра.')
+        index_func()
+def main_menu():
+        print(filler_string)
+        print('ГЛАВНОЕ МЕНЮ')
+        print('1 - Ввести или обновить информацию')
+        print('2 - Вывести информацию')
+        print('0 - Завершить Работу')
+        menu_choice = int(input('Введите номер пункта меню: '))
+        if menu_choice == 0:
+            exit('Завершение Программы...')
+        elif menu_choice == 1:
+            print(filler_string, '\nВВЕСТИ ИЛИ ОБНОВИТЬ ИНФОРМАЦИЮ')
+            print('1 - Личная информация')
+            print('2 - Информация о предпринимателе')
+            print('0 - Назад')
+            menu_choice = int(input('Введите номер пункта меню: '))
+            if menu_choice == 0:
+                main_menu()
+            elif menu_choice == 1:
+                personal_information()
+            else:
+                enterpreneur_information()
+        elif menu_choice == 2:
+            view_information()
+        else:
+            print('Выберите подходящее из списка.')
+            main_menu()
+def personal_information():
+    print(filler_string)
+    global name, age, number_phone, email, index, address, additional_information, personal_information_check
+    name = input('Введите Имя: ')
+    age = input('Введите Возраст: ')
+    number_phone = input('Введите номер телефона (+7XXXXXXXXXX): ')
+    email = input('Введите адрес электронной почты: ')
+    index_func()
+    address = input('Введите почтовый адрес (без индекса): ')
+    additional_information = input('Введите дополнительную информацию: ')
+    personal_information_check = True
+    main_menu()
+def enterpreneur_information():
+    print(filler_string)
+    global ogrnip, inn, current_account, bank_name, bik, correspondent_account,  enterpreneur_information_check
+    while True:
+        ogrnip = input('Введите ОГРНИП: ')
+        if ogrnip.isalpha():
+            print('ОГРНИП должен состоять из цифр.')
+            continue
+        elif int(len(ogrnip)) != 15:
+            print('ОГРНИП должен иметь 15 цифр.')
+            continue
+        else:
+            break
+    while True:
+        inn = input('Введите ИНН: ')
+        if inn.isalpha():
+            print('ИНН должен состоять из цифр.')
+        elif int(len(inn)) != 15:
+            print('ИНН должен иметь 15 цифр.')
+            continue
+        else:
+            break
+    while True:
+        current_account = input('Введите расчетный счет: ')
+        if current_account.isalpha():
+            print('Расчетный счет должен состоять из цифр.')
+            continue
+        elif int(len(current_account)) != 20:
+            print('Расчетный счет должен содержать 20 цифр.')
+            continue
+        else:
+            break
+    bank_name = input('Введите название банка: ')
+    bik = input('Введите БИК: ')
+    correspondent_account = input('Введите корреспондентский счет: ')
+    enterpreneur_information_check = True
+    main_menu()
+def view_information():
+    print(filler_string)
+    print('ВЫВЕСТИ ИНФОРМАЦИЮ')
+    print('1 - Общая информация')
+    print('2 - Вся информация')
+    print('0 - Назад')
+    menu_choice = int(input('Введите номер пункта меню: '))
+    print(filler_string)
+    if menu_choice == 0:
+        main_menu()
+    elif menu_choice == 1:
+        print(filler_string)
+        if personal_information_check == True:
+            print(filler_string)
+            print('Имя: ', name)
+            print('Возраст: ', age)
+            print('Телефон: ', number_phone)
+            print('E-mail: ', email)
+            print('Индекс: ', number)
+            print('Адрес: ', address)
+            print('Дополнительная Информация: ', additional_information)
+        else:
+            print('Нету персональной информации.')
+            main_menu()
+    else:
+        if personal_information_check == True:
+            print('Имя: ', name)
+            print('Возраст: ', age)
+            print('Телефон: ', number_phone)
+            print('E-mail: ', email)
+            print('Индекс: ', number)
+            print('Адрес: ', address)
+            print('Дополнительная Информация: ', additional_information)
+        else:
+            print('Нету персональной информации.')
+        if enterpreneur_information_check == True:
+            print('\nОГРНИП: ', ogrnip)
+            print('ИНН: ', inn)
+            print('Банковские Реквизиты')
+            print('Р/с: ', current_account)
+            print('Банк: ', bank_name)
+            print('БИК: ', bik)
+            print('К/с: ', correspondent_account)
+            print(filler_string)
+        else:
+            print('Нету информации о предпринимателе.')
+    main_menu()
+print('Приложение MyProfile')
+print('Сохраняй Информацию о себе и выводи её в разных форматах')
+main_menu()
